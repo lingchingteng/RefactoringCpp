@@ -89,7 +89,7 @@ int StatementCreator::TotalAmount(json data)
 	return result;
 }
 
-std::string StatementCreator::RenderPlainText(json data, json invoice)
+std::string StatementCreator::RenderPlainText(json data)
 {
 	std::string result = "Statement for " + data["customer"].get<std::string>() + "\n";
 
@@ -110,5 +110,5 @@ std::string StatementCreator::Statement(json invoice)
 	json statementData;
 	statementData["customer"] = invoice["customer"];
 	statementData["performances"] = invoice["performances"];
-	return RenderPlainText(statementData, invoice);
+	return RenderPlainText(statementData);
 }
