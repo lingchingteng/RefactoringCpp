@@ -57,11 +57,11 @@ int StatementCreator::VolumeCreditsFor(json& aPerformance)
 	return result;
 }
 
-std::string StatementCreator::Format(double money)
+std::string StatementCreator::Usd(int money)
 {
 	std::stringstream ss;
 	ss.imbue(std::locale(""));
-	ss << std::fixed << std::setprecision(2) << money;
+	ss << std::fixed << std::setprecision(2) << money / 100.0;
 	return ss.str();
 }
 
@@ -75,11 +75,11 @@ std::string StatementCreator::Statement(json invoice)
 	{
 		volumeCredits += VolumeCreditsFor(perf);
 
-		result += " " + PlayFor(perf)["name"].get<std::string>() + ": $" + Format(AmountFor(perf) / 100.0) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
+		result += " " + PlayFor(perf)["name"].get<std::string>() + ": $" + Usd(AmountFor(perf)) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
 		totalAmount += AmountFor(perf);
 	}
 
-	result += "Amount owed is $" + Format(totalAmount / 100.0) + "\n";
+	result += "Amount owed is $" + Usd(totalAmount) + "\n";
 
 	result += "You earned " + std::to_string(volumeCredits) + " credits\n";
 
