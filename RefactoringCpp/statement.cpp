@@ -13,7 +13,7 @@ int StatementCreator::AmountFor(json& aPerformance)
 {
 	int result = 0;
 
-	if (PlayFor(aPerformance)["type"].get<std::string>() == "tragedy")
+	if (aPerformance["play"]["type"].get<std::string>() == "tragedy")
 	{
 		result = 40000;
 		if (aPerformance["audience"].get<int>() > 30)
@@ -21,7 +21,7 @@ int StatementCreator::AmountFor(json& aPerformance)
 			result += 1000 * (aPerformance["audience"].get<int>() - 30);
 		}
 	}
-	else if (PlayFor(aPerformance)["type"].get<std::string>() == "comedy")
+	else if (aPerformance["play"]["type"].get<std::string>() == "comedy")
 	{
 		result = 30000;
 		if (aPerformance["audience"].get<int>() > 20)
@@ -32,7 +32,7 @@ int StatementCreator::AmountFor(json& aPerformance)
 	}
 	else
 	{
-		throw std::domain_error("unknown type: " + PlayFor(aPerformance)["type"].get<std::string>());
+		throw std::domain_error("unknown type: " + aPerformance["play"]["type"].get<std::string>());
 	}
 
 	return result;
@@ -49,7 +49,7 @@ int StatementCreator::VolumeCreditsFor(json& aPerformance)
 
 	result += std::max(aPerformance["audience"].get<int>() - 30, 0);
 
-	if (PlayFor(aPerformance)["type"].get<std::string>() == "comedy")
+	if (aPerformance["play"]["type"].get<std::string>() == "comedy")
 	{
 		result += aPerformance["audience"].get<int>() / 5;
 	}
@@ -95,7 +95,7 @@ std::string StatementCreator::RenderPlainText(json data)
 
 	for (auto& perf : data["performances"])
 	{
-		result += " " + PlayFor(perf)["name"].get<std::string>() + ": $" + Usd(AmountFor(perf)) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
+		result += " " + perf["play"]["name"].get<std::string>() + ": $" + Usd(AmountFor(perf)) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
 	}
 
 	result += "Amount owed is $" + Usd(TotalAmount(data)) + "\n";
@@ -105,10 +105,25 @@ std::string StatementCreator::RenderPlainText(json data)
 	return result;
 }
 
+json StatementCreator::EnrichPerformance(json& aPerformance)
+{
+	json result = aPerformance;
+	result["play"] = PlayFor(result);
+
+	return result;
+}
+
 std::string StatementCreator::Statement(json invoice)
 {
 	json statementData;
 	statementData["customer"] = invoice["customer"];
-	statementData["performances"] = invoice["performances"];
+	std::transform(
+		invoice["performances"].begin(),
+		invoice["performances"].end(),
+		std::back_inserter(statementData["performances"]),
+		[this](json& aPerformance)
+		{
+			return this->EnrichPerformance(aPerformance);
+		});
 	return RenderPlainText(statementData);
 }

@@ -20,4 +20,5 @@ private:
 	int TotalVolumeCredits(nlohmann::json data);
 	int TotalAmount(nlohmann::json data);
 	std::string RenderPlainText(nlohmann::json data);
+	nlohmann::json EnrichPerformance(nlohmann::json& aPerformance);
 };
