@@ -71,7 +71,7 @@ int StatementCreator::TotalVolumeCredits(json data)
 
 	for (auto& perf : data["performances"])
 	{
-		volumeCredits += VolumeCreditsFor(perf);
+		volumeCredits += perf["volumeCredits"].get<int>();
 	}
 
 	return volumeCredits;
@@ -110,6 +110,7 @@ json StatementCreator::EnrichPerformance(json& aPerformance)
 	json result = aPerformance;
 	result["play"] = PlayFor(result);
 	result["amount"] = AmountFor(result);
+	result["volumeCredits"] = VolumeCreditsFor(result);
 
 	return result;
 }
