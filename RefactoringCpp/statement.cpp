@@ -98,9 +98,9 @@ std::string StatementCreator::RenderPlainText(json data)
 		result += " " + perf["play"]["name"].get<std::string>() + ": $" + Usd(perf["amount"]) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
 	}
 
-	result += "Amount owed is $" + Usd(TotalAmount(data)) + "\n";
+	result += "Amount owed is $" + Usd(data["totalAmount"]) + "\n";
 
-	result += "You earned " + std::to_string(TotalVolumeCredits(data)) + " credits\n";
+	result += "You earned " + std::to_string(data["totalVolumeCredits"].get<int>()) + " credits\n";
 
 	return result;
 }
@@ -127,5 +127,7 @@ std::string StatementCreator::Statement(json invoice)
 		{
 			return this->EnrichPerformance(aPerformance);
 		});
+	statementData["totalAmount"] = TotalAmount(statementData);
+	statementData["totalVolumeCredits"] = TotalVolumeCredits(statementData);
 	return RenderPlainText(statementData);
 }
