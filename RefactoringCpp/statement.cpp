@@ -82,8 +82,6 @@ std::string StatementCreator::Statement(json invoice)
 	int totalAmount = 0;
 	std::string result = "Statement for " + invoice["customer"].get<std::string>() + "\n";
 
-	int volumeCredits = TotalVolumeCredits(invoice);
-
 	for (auto& perf : invoice["performances"])
 	{
 		result += " " + PlayFor(perf)["name"].get<std::string>() + ": $" + Usd(AmountFor(perf)) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
@@ -92,7 +90,7 @@ std::string StatementCreator::Statement(json invoice)
 
 	result += "Amount owed is $" + Usd(totalAmount) + "\n";
 
-	result += "You earned " + std::to_string(volumeCredits) + " credits\n";
+	result += "You earned " + std::to_string(TotalVolumeCredits(invoice)) + " credits\n";
 
 	return result;
 }
