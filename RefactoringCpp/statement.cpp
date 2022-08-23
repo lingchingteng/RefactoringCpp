@@ -74,7 +74,10 @@ std::string StatementCreator::Statement(json invoice)
 	for (auto& perf : invoice["performances"])
 	{
 		volumeCredits += VolumeCreditsFor(perf);
+	}
 
+	for (auto& perf : invoice["performances"])
+	{
 		result += " " + PlayFor(perf)["name"].get<std::string>() + ": $" + Usd(AmountFor(perf)) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
 		totalAmount += AmountFor(perf);
 	}
