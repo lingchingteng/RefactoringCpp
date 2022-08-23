@@ -65,17 +65,24 @@ std::string StatementCreator::Usd(int money)
 	return ss.str();
 }
 
-std::string StatementCreator::Statement(json invoice)
+int StatementCreator::TotalVolumeCredits(json invoice)
 {
-	int totalAmount = 0;
-	
-	std::string result = "Statement for " + invoice["customer"].get<std::string>() + "\n";
-
 	int volumeCredits = 0;
+
 	for (auto& perf : invoice["performances"])
 	{
 		volumeCredits += VolumeCreditsFor(perf);
 	}
+
+	return volumeCredits;
+}
+
+std::string StatementCreator::Statement(json invoice)
+{
+	int totalAmount = 0;
+	std::string result = "Statement for " + invoice["customer"].get<std::string>() + "\n";
+
+	int volumeCredits = TotalVolumeCredits(invoice);
 
 	for (auto& perf : invoice["performances"])
 	{
