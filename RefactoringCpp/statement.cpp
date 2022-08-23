@@ -58,17 +58,16 @@ std::string StatementCreator::Statement(json invoice)
 
     for (auto& perf : invoice["performances"])
     {
-        auto play = PlayFor(perf);
-        int thisAmount = AmountFor(perf, play);
+	    int thisAmount = AmountFor(perf, PlayFor(perf));
 
         volumeCredits += std::max(perf["audience"].get<int>() - 30, 0);
 
-        if (play["type"].get<std::string>() == "comedy")
+        if (PlayFor(perf)["type"].get<std::string>() == "comedy")
         {
             volumeCredits += perf["audience"].get<int>() / 5;
         }
         
-        result += " " + play["name"].get<std::string>() + ": $" + format(thisAmount/100.0) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
+        result += " " + PlayFor(perf)["name"].get<std::string>() + ": $" + format(thisAmount/100.0) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
         totalAmount += thisAmount;
     }
 
