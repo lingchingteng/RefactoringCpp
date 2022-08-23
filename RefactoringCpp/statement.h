@@ -12,4 +12,6 @@ public:
 
 private:
 	nlohmann::json mPlay;
+
+	int AmountFor(nlohmann::json& perf, nlohmann::json play);
 };
