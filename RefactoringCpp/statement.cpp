@@ -9,26 +9,26 @@ StatementCreator::StatementCreator(const json& plays)
     mPlay = plays;
 }
 
-int StatementCreator::AmountFor(json& perf, json play)
+int StatementCreator::AmountFor(json& aPerformance, json play)
 {
 	int result = 0;
 
 	if (play["type"].get<std::string>() == "tragedy")
 	{
 		result = 40000;
-		if (perf["audience"].get<int>() > 30)
+		if (aPerformance["audience"].get<int>() > 30)
 		{
-			result += 1000 * (perf["audience"].get<int>() - 30);
+			result += 1000 * (aPerformance["audience"].get<int>() - 30);
 		}
 	}
 	else if (play["type"].get<std::string>() == "comedy")
 	{
 		result = 30000;
-		if (perf["audience"].get<int>() > 20)
+		if (aPerformance["audience"].get<int>() > 20)
 		{
-			result += 10000 + 500 * (perf["audience"].get<int>() - 20);
+			result += 10000 + 500 * (aPerformance["audience"].get<int>() - 20);
 		}
-		result += 300 * perf["audience"].get<int>();
+		result += 300 * aPerformance["audience"].get<int>();
 	}
 	else
 	{
