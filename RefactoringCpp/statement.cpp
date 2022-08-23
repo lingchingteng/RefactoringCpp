@@ -68,9 +68,10 @@ std::string StatementCreator::Usd(int money)
 std::string StatementCreator::Statement(json invoice)
 {
 	int totalAmount = 0;
-	int volumeCredits = 0;
+	
 	std::string result = "Statement for " + invoice["customer"].get<std::string>() + "\n";
 
+	int volumeCredits = 0;
 	for (auto& perf : invoice["performances"])
 	{
 		volumeCredits += VolumeCreditsFor(perf);
