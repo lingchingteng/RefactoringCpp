@@ -91,7 +91,7 @@ int StatementCreator::TotalAmount(json invoice)
 
 std::string StatementCreator::RenderPlainText(json data, json invoice)
 {
-	std::string result = "Statement for " + invoice["customer"].get<std::string>() + "\n";
+	std::string result = "Statement for " + data["customer"].get<std::string>() + "\n";
 
 	for (auto& perf : invoice["performances"])
 	{
@@ -108,5 +108,6 @@ std::string StatementCreator::RenderPlainText(json data, json invoice)
 std::string StatementCreator::Statement(json invoice)
 {
 	json statementData;
+	statementData["customer"] = invoice["customer"];
 	return RenderPlainText(statementData, invoice);
 }
