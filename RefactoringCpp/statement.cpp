@@ -98,9 +98,7 @@ std::string StatementCreator::Statement(json invoice)
 		result += " " + PlayFor(perf)["name"].get<std::string>() + ": $" + Usd(AmountFor(perf)) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
 	}
 
-	int totalAmount = TotalAmount(invoice);
-
-	result += "Amount owed is $" + Usd(totalAmount) + "\n";
+	result += "Amount owed is $" + Usd(TotalAmount(invoice)) + "\n";
 
 	result += "You earned " + std::to_string(TotalVolumeCredits(invoice)) + " credits\n";
 
