@@ -83,7 +83,7 @@ int StatementCreator::TotalAmount(json data)
 
 	for (auto& perf : data["performances"])
 	{
-		result += AmountFor(perf);
+		result += perf["amount"].get<int>();
 	}
 
 	return result;
@@ -95,7 +95,7 @@ std::string StatementCreator::RenderPlainText(json data)
 
 	for (auto& perf : data["performances"])
 	{
-		result += " " + perf["play"]["name"].get<std::string>() + ": $" + Usd(AmountFor(perf)) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
+		result += " " + perf["play"]["name"].get<std::string>() + ": $" + Usd(perf["amount"]) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
 	}
 
 	result += "Amount owed is $" + Usd(TotalAmount(data)) + "\n";
@@ -109,6 +109,7 @@ json StatementCreator::EnrichPerformance(json& aPerformance)
 {
 	json result = aPerformance;
 	result["play"] = PlayFor(result);
+	result["amount"] = AmountFor(result);
 
 	return result;
 }
