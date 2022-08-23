@@ -15,4 +15,5 @@ private:
 
 	int AmountFor(nlohmann::json& aPerformance);
 	nlohmann::json PlayFor(nlohmann::json& aPerformance);
+	int VolumeCreditsFor(nlohmann::json& aPerformance);
 };

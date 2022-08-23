@@ -43,6 +43,20 @@ json StatementCreator::PlayFor(json& aPerformance)
 	return mPlay[aPerformance["playID"]];
 }
 
+int StatementCreator::VolumeCreditsFor(json& aPerformance)
+{
+	int result = 0;
+
+	result += std::max(aPerformance["audience"].get<int>() - 30, 0);
+
+	if (PlayFor(aPerformance)["type"].get<std::string>() == "comedy")
+	{
+		result += aPerformance["audience"].get<int>() / 5;
+	}
+
+	return result;
+}
+
 std::string StatementCreator::Statement(json invoice)
 {
     int totalAmount = 0;
@@ -58,12 +72,7 @@ std::string StatementCreator::Statement(json invoice)
 
     for (auto& perf : invoice["performances"])
     {
-	    volumeCredits += std::max(perf["audience"].get<int>() - 30, 0);
-
-        if (PlayFor(perf)["type"].get<std::string>() == "comedy")
-        {
-            volumeCredits += perf["audience"].get<int>() / 5;
-        }
+		volumeCredits += VolumeCreditsFor(perf);
         
         result += " " + PlayFor(perf)["name"].get<std::string>() + ": $" + format(AmountFor(perf)/100.0) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
         totalAmount += AmountFor(perf);
