@@ -111,7 +111,7 @@ json StatementCreator::EnrichPerformance(json& aPerformance)
 	return result;
 }
 
-std::string StatementCreator::Statement(json invoice)
+json StatementCreator::CreateStatementData(json invoice)
 {
 	json statementData;
 	statementData["customer"] = invoice["customer"];
@@ -125,5 +125,11 @@ std::string StatementCreator::Statement(json invoice)
 		});
 	statementData["totalAmount"] = TotalAmount(statementData);
 	statementData["totalVolumeCredits"] = TotalVolumeCredits(statementData);
-	return RenderPlainText(statementData);
+
+	return statementData;
+}
+
+std::string StatementCreator::Statement(json invoice)
+{
+	return RenderPlainText(CreateStatementData(invoice));
 }

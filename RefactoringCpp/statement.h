@@ -21,4 +21,5 @@ private:
 	int TotalAmount(nlohmann::json data);
 	std::string RenderPlainText(nlohmann::json data);
 	nlohmann::json EnrichPerformance(nlohmann::json& aPerformance);
+	nlohmann::json CreateStatementData(nlohmann::json invoice);
 };
