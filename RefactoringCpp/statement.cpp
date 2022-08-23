@@ -38,6 +38,11 @@ int StatementCreator::AmountFor(json& aPerformance, json play)
     return result;
 }
 
+json StatementCreator::PlayFor(json& aPerformance)
+{
+	return mPlay[aPerformance["playID"]];
+}
+
 std::string StatementCreator::Statement(json invoice)
 {
     int totalAmount = 0;
@@ -53,7 +58,7 @@ std::string StatementCreator::Statement(json invoice)
 
     for (auto& perf : invoice["performances"])
     {
-        auto& play = mPlay[perf["playID"]];
+        auto play = PlayFor(perf);
         int thisAmount = AmountFor(perf, play);
 
         volumeCredits += std::max(perf["audience"].get<int>() - 30, 0);
