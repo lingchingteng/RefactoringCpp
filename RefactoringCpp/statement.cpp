@@ -13,7 +13,7 @@ int StatementCreator::AmountFor(json& aPerformance, json play)
 {
 	int result = 0;
 
-	if (play["type"].get<std::string>() == "tragedy")
+	if (PlayFor(aPerformance)["type"].get<std::string>() == "tragedy")
 	{
 		result = 40000;
 		if (aPerformance["audience"].get<int>() > 30)
@@ -21,7 +21,7 @@ int StatementCreator::AmountFor(json& aPerformance, json play)
 			result += 1000 * (aPerformance["audience"].get<int>() - 30);
 		}
 	}
-	else if (play["type"].get<std::string>() == "comedy")
+	else if (PlayFor(aPerformance)["type"].get<std::string>() == "comedy")
 	{
 		result = 30000;
 		if (aPerformance["audience"].get<int>() > 20)
@@ -32,7 +32,7 @@ int StatementCreator::AmountFor(json& aPerformance, json play)
 	}
 	else
 	{
-		throw std::domain_error("unknown type: " + play["type"].get<std::string>());
+		throw std::domain_error("unknown type: " + PlayFor(aPerformance)["type"].get<std::string>());
 	}
 
     return result;
