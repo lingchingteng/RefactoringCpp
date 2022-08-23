@@ -67,26 +67,22 @@ std::string StatementCreator::Usd(int money)
 
 int StatementCreator::TotalVolumeCredits(json data)
 {
-	int volumeCredits = 0;
-
-	for (auto& perf : data["performances"])
-	{
-		volumeCredits += perf["volumeCredits"].get<int>();
-	}
-
-	return volumeCredits;
+	return std::accumulate(
+		data["performances"].begin(),
+		data["performances"].end(),
+		0,
+		[](int total, json& aPerformance) { return total + aPerformance["volumeCredits"].get<int>(); }
+	);
 }
 
 int StatementCreator::TotalAmount(json data)
 {
-	int result = 0;
-
-	for (auto& perf : data["performances"])
-	{
-		result += perf["amount"].get<int>();
-	}
-
-	return result;
+	return std::accumulate(
+		data["performances"].begin(),
+		data["performances"].end(),
+		0,
+		[](int total, json& aPerformance) { return total + aPerformance["amount"].get<int>(); }
+	);
 }
 
 std::string StatementCreator::RenderPlainText(json data)
