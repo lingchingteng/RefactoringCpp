@@ -19,4 +19,5 @@ private:
 	std::string Usd(int money);
 	int TotalVolumeCredits(nlohmann::json invoice);
 	int TotalAmount(nlohmann::json invoice);
+	std::string RenderPlainText(nlohmann::json invoice);
 };
