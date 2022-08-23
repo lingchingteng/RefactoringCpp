@@ -17,7 +17,7 @@ private:
 	nlohmann::json PlayFor(nlohmann::json& aPerformance);
 	int VolumeCreditsFor(nlohmann::json& aPerformance);
 	std::string Usd(int money);
-	int TotalVolumeCredits(nlohmann::json invoice);
-	int TotalAmount(nlohmann::json invoice);
+	int TotalVolumeCredits(nlohmann::json data);
+	int TotalAmount(nlohmann::json data);
 	std::string RenderPlainText(nlohmann::json data, nlohmann::json invoice);
 };
