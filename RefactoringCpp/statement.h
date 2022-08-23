@@ -4,22 +4,17 @@
 
 #include <nlohmann/json.hpp>
 
-class StatementCreator
+#include "StatementData.h"
+
+class Company
 {
 public:
-	StatementCreator(const nlohmann::json& plays);
+	explicit Company(nlohmann::json plays);
+
 	std::string Statement(nlohmann::json invoice);
 
 private:
-	nlohmann::json mPlay;
+	StatementData mStatementData;
 
-	int AmountFor(nlohmann::json& aPerformance);
-	nlohmann::json PlayFor(nlohmann::json& aPerformance);
-	int VolumeCreditsFor(nlohmann::json& aPerformance);
-	std::string Usd(int money);
-	int TotalVolumeCredits(nlohmann::json data);
-	int TotalAmount(nlohmann::json data);
 	std::string RenderPlainText(nlohmann::json data);
-	nlohmann::json EnrichPerformance(nlohmann::json& aPerformance);
-	nlohmann::json CreateStatementData(nlohmann::json invoice);
 };

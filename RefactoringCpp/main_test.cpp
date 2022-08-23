@@ -4,6 +4,7 @@
 #include <filesystem>
 
 #include "statement.h"
+#include "StatementData.h"
 
 TEST(StatementTest, ResultStringCorrect)
 {
@@ -16,7 +17,7 @@ TEST(StatementTest, ResultStringCorrect)
 	const auto plays = nlohmann::json::parse(std::ifstream(filepathPlays));
     const auto invoices = nlohmann::json::parse(std::ifstream(filepathInvoices));
 
-    StatementCreator statementCreator(plays);
+    Company company(plays);
 
     ASSERT_EQ
     (
@@ -26,7 +27,7 @@ TEST(StatementTest, ResultStringCorrect)
         " Othello: $500.00 (40 seats)\n"
         "Amount owed is $1,730.00\n"
         "You earned 47 credits\n",
-        statementCreator.Statement(invoices[0])
+        company.Statement(invoices[0])
     );
 }
 

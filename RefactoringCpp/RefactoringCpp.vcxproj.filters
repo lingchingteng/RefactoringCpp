@@ -30,10 +30,16 @@
     <ClCompile Include="statement.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="StatementData.cpp">
+      <Filter>標頭檔</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="statement.h">
       <Filter>來源檔案</Filter>
+    </ClInclude>
+    <ClInclude Include="StatementData.h">
+      <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
