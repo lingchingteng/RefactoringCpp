@@ -58,17 +58,15 @@ std::string StatementCreator::Statement(json invoice)
 
     for (auto& perf : invoice["performances"])
     {
-	    int thisAmount = AmountFor(perf);
-
-        volumeCredits += std::max(perf["audience"].get<int>() - 30, 0);
+	    volumeCredits += std::max(perf["audience"].get<int>() - 30, 0);
 
         if (PlayFor(perf)["type"].get<std::string>() == "comedy")
         {
             volumeCredits += perf["audience"].get<int>() / 5;
         }
         
-        result += " " + PlayFor(perf)["name"].get<std::string>() + ": $" + format(thisAmount/100.0) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
-        totalAmount += thisAmount;
+        result += " " + PlayFor(perf)["name"].get<std::string>() + ": $" + format(AmountFor(perf)/100.0) + " (" + std::to_string(perf["audience"].get<int>()) + " seats)\n";
+        totalAmount += AmountFor(perf);
     }
 
     result += "Amount owed is $" + format(totalAmount/100.0) + "\n";
