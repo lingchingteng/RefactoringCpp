@@ -29,12 +29,6 @@ json StatementData::CreateStatementData(json invoice)
 	return statementData;
 }
 
-int StatementData::AmountFor(json& aPerformance)
-{
-	PerformanceCalculator performanceCalculator(aPerformance, PlayFor(aPerformance));
-	return performanceCalculator.Amount();
-}
-
 json StatementData::PlayFor(json& aPerformance)
 {
 	return mPlays[aPerformance["playID"]];
@@ -79,7 +73,7 @@ json StatementData::EnrichPerformance(json& aPerformance)
 	PerformanceCalculator performanceCalculator(aPerformance, PlayFor(aPerformance));
 	json result = aPerformance;
 	result["play"] = performanceCalculator.mPlay;
-	result["amount"] = AmountFor(result);
+	result["amount"] = performanceCalculator.Amount();
 	result["volumeCredits"] = VolumeCreditsFor(result);
 
 	return result;
