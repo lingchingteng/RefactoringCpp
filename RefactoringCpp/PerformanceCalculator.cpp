@@ -15,14 +15,5 @@ int PerformanceCalculator::Amount()
 
 int PerformanceCalculator::VolumeCredits()
 {
-	int result = 0;
-
-	result += std::max(mPerformance["audience"].get<int>() - 30, 0);
-
-	if (mPlay["type"].get<std::string>() == "comedy")
-	{
-		result += mPerformance["audience"].get<int>() / 5;
-	}
-
-	return result;
+	return std::max(mPerformance["audience"].get<int>() - 30, 0);
 }

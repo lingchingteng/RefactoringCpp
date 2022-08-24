@@ -21,3 +21,8 @@ int ComedyCalculator::Amount()
 
 	return result;
 }
+
+int ComedyCalculator::VolumeCredits()
+{
+	return PerformanceCalculator::VolumeCredits() + mPerformance["audience"].get<int>() / 5;;
+}

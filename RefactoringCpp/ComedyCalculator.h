@@ -7,4 +7,5 @@ public:
 	ComedyCalculator(nlohmann::json aPerformance, nlohmann::json play);
 
 	int Amount() override;
+	int VolumeCredits() override;
 };
