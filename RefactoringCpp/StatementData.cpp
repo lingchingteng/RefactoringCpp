@@ -99,9 +99,9 @@ int StatementData::TotalAmount(json data)
 
 json StatementData::EnrichPerformance(json& aPerformance)
 {
-	PerformanceCalculator performanceCalculator(aPerformance);
+	PerformanceCalculator performanceCalculator(aPerformance, PlayFor(aPerformance));
 	json result = aPerformance;
-	result["play"] = PlayFor(result);
+	result["play"] = performanceCalculator.mPlay;
 	result["amount"] = AmountFor(result);
 	result["volumeCredits"] = VolumeCreditsFor(result);
 

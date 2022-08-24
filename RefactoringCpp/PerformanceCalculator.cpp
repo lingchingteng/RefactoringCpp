@@ -1,6 +1,9 @@
 ﻿#include "PerformanceCalculator.h"
 
-PerformanceCalculator::PerformanceCalculator(nlohmann::json aPerformance)
+using json = nlohmann::json;
+
+PerformanceCalculator::PerformanceCalculator(json aPerformance, json play)
 {
-	
+	mPerformance = aPerformance;
+	mPlay = play;
 }
