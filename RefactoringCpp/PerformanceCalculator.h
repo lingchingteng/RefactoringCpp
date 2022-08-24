@@ -9,6 +9,7 @@ public:
 
 	nlohmann::json mPlay;
 	int Amount();
+	int VolumeCredits();
 
 private:
 	nlohmann::json mPerformance;

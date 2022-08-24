@@ -36,16 +36,8 @@ json StatementData::PlayFor(json& aPerformance)
 
 int StatementData::VolumeCreditsFor(json& aPerformance)
 {
-	int result = 0;
-
-	result += std::max(aPerformance["audience"].get<int>() - 30, 0);
-
-	if (aPerformance["play"]["type"].get<std::string>() == "comedy")
-	{
-		result += aPerformance["audience"].get<int>() / 5;
-	}
-
-	return result;
+	PerformanceCalculator performanceCalculator(aPerformance, PlayFor(aPerformance));
+	return performanceCalculator.VolumeCredits();
 }
 
 int StatementData::TotalVolumeCredits(json data)
