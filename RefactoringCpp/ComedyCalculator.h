@@ -5,4 +5,6 @@ class ComedyCalculator : public PerformanceCalculator
 {
 public:
 	ComedyCalculator(nlohmann::json aPerformance, nlohmann::json play);
+
+	int Amount() override;
 };
