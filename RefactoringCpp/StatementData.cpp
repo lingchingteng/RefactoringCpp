@@ -31,31 +31,8 @@ json StatementData::CreateStatementData(json invoice)
 
 int StatementData::AmountFor(json& aPerformance)
 {
-	int result = 0;
-
-	if (aPerformance["play"]["type"].get<std::string>() == "tragedy")
-	{
-		result = 40000;
-		if (aPerformance["audience"].get<int>() > 30)
-		{
-			result += 1000 * (aPerformance["audience"].get<int>() - 30);
-		}
-	}
-	else if (aPerformance["play"]["type"].get<std::string>() == "comedy")
-	{
-		result = 30000;
-		if (aPerformance["audience"].get<int>() > 20)
-		{
-			result += 10000 + 500 * (aPerformance["audience"].get<int>() - 20);
-		}
-		result += 300 * aPerformance["audience"].get<int>();
-	}
-	else
-	{
-		throw std::domain_error("unknown type: " + aPerformance["play"]["type"].get<std::string>());
-	}
-
-	return result;
+	PerformanceCalculator performanceCalculator(aPerformance, PlayFor(aPerformance));
+	return performanceCalculator.Amount();
 }
 
 json StatementData::PlayFor(json& aPerformance)
