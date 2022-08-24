@@ -2,7 +2,9 @@
 
 #include <sstream>
 
+#include "ComedyCalculator.h"
 #include "PerformanceCalculator.h"
+#include "TragedyCalculator.h"
 
 using json = nlohmann::json;
 
@@ -54,18 +56,29 @@ int StatementData::TotalAmount(json data)
 	);
 }
 
-PerformanceCalculator StatementData::CreatePerformanceCalculator(json& aPerformance, json play)
+std::shared_ptr<PerformanceCalculator> StatementData::CreatePerformanceCalculator(json& aPerformance, json play)
 {
-	return { aPerformance, play };
+	if (play["type"].get<std::string>() == "tragedy")
+	{
+		return std::make_shared<TragedyCalculator>(aPerformance, play);
+	}
+	else if (play["type"].get<std::string>() == "comedy")
+	{
+		return std::make_shared<ComedyCalculator>(aPerformance, play);
+	}
+	else
+	{
+		throw std::domain_error("unknown type: " + play["type"].get<std::string>());
+	}
 }
 
 json StatementData::EnrichPerformance(json& aPerformance)
 {
-	PerformanceCalculator performanceCalculator = CreatePerformanceCalculator(aPerformance, PlayFor(aPerformance));
+	std::shared_ptr<PerformanceCalculator> performanceCalculator = CreatePerformanceCalculator(aPerformance, PlayFor(aPerformance));
 	json result = aPerformance;
-	result["play"] = performanceCalculator.mPlay;
-	result["amount"] = performanceCalculator.Amount();
-	result["volumeCredits"] = performanceCalculator.VolumeCredits();
+	result["play"] = performanceCalculator->mPlay;
+	result["amount"] = performanceCalculator->Amount();
+	result["volumeCredits"] = performanceCalculator->VolumeCredits();
 
 	return result;
 }

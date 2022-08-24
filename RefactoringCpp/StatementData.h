@@ -13,7 +13,7 @@ public:
 private:
 	nlohmann::json mPlays;
 
-	PerformanceCalculator CreatePerformanceCalculator(nlohmann::json& aPerformance, nlohmann::json play);
+	std::shared_ptr<PerformanceCalculator> CreatePerformanceCalculator(nlohmann::json& aPerformance, nlohmann::json play);
 
 	nlohmann::json PlayFor(nlohmann::json& aPerformance);
 	int TotalVolumeCredits(nlohmann::json data);

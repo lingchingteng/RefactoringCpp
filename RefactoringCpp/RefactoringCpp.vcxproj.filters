@@ -42,6 +42,12 @@
     <ClCompile Include="PerformanceCalculator.cpp">
       <Filter>標頭檔</Filter>
     </ClCompile>
+    <ClCompile Include="TragedyCalculator.cpp">
+      <Filter>標頭檔</Filter>
+    </ClCompile>
+    <ClCompile Include="ComedyCalculator.cpp">
+      <Filter>標頭檔</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="statement.h">
@@ -51,6 +57,12 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="PerformanceCalculator.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="TragedyCalculator.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ComedyCalculator.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

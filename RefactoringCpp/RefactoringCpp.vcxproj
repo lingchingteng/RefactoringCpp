@@ -136,15 +136,19 @@
     <None Include="plays.json" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ComedyCalculator.cpp" />
     <ClCompile Include="main_test.cpp" />
     <ClCompile Include="PerformanceCalculator.cpp" />
     <ClCompile Include="statement.cpp" />
     <ClCompile Include="StatementData.cpp" />
+    <ClCompile Include="TragedyCalculator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ComedyCalculator.h" />
     <ClInclude Include="PerformanceCalculator.h" />
     <ClInclude Include="statement.h" />
     <ClInclude Include="StatementData.h" />
+    <ClInclude Include="TragedyCalculator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

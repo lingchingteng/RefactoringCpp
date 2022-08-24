@@ -8,9 +8,9 @@ public:
 	PerformanceCalculator(nlohmann::json aPerformance, nlohmann::json play);
 
 	nlohmann::json mPlay;
-	int Amount();
-	int VolumeCredits();
+	virtual int Amount();
+	virtual int VolumeCredits();
 
-private:
+protected:
 	nlohmann::json mPerformance;
 };
