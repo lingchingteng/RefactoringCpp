@@ -2,6 +2,8 @@
 
 #include <nlohmann/json.hpp>
 
+#include "PerformanceCalculator.h"
+
 class StatementData
 {
 public:
@@ -11,9 +13,9 @@ public:
 private:
 	nlohmann::json mPlays;
 
-	int AmountFor(nlohmann::json& aPerformance);
+	PerformanceCalculator CreatePerformanceCalculator(nlohmann::json& aPerformance, nlohmann::json play);
+
 	nlohmann::json PlayFor(nlohmann::json& aPerformance);
-	int VolumeCreditsFor(nlohmann::json& aPerformance);
 	int TotalVolumeCredits(nlohmann::json data);
 	int TotalAmount(nlohmann::json data);
 	nlohmann::json EnrichPerformance(nlohmann::json& aPerformance);

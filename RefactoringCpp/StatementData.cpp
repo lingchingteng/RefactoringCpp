@@ -34,12 +34,6 @@ json StatementData::PlayFor(json& aPerformance)
 	return mPlays[aPerformance["playID"]];
 }
 
-int StatementData::VolumeCreditsFor(json& aPerformance)
-{
-	PerformanceCalculator performanceCalculator(aPerformance, PlayFor(aPerformance));
-	return performanceCalculator.VolumeCredits();
-}
-
 int StatementData::TotalVolumeCredits(json data)
 {
 	return std::accumulate(
@@ -60,13 +54,18 @@ int StatementData::TotalAmount(json data)
 	);
 }
 
+PerformanceCalculator StatementData::CreatePerformanceCalculator(json& aPerformance, json play)
+{
+	return { aPerformance, play };
+}
+
 json StatementData::EnrichPerformance(json& aPerformance)
 {
-	PerformanceCalculator performanceCalculator(aPerformance, PlayFor(aPerformance));
+	PerformanceCalculator performanceCalculator = CreatePerformanceCalculator(aPerformance, PlayFor(aPerformance));
 	json result = aPerformance;
 	result["play"] = performanceCalculator.mPlay;
 	result["amount"] = performanceCalculator.Amount();
-	result["volumeCredits"] = VolumeCreditsFor(result);
+	result["volumeCredits"] = performanceCalculator.VolumeCredits();
 
 	return result;
 }
