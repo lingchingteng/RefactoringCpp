@@ -14,11 +14,7 @@ int PerformanceCalculator::Amount()
 
 	if (mPlay["type"].get<std::string>() == "tragedy")
 	{
-		result = 40000;
-		if (mPerformance["audience"].get<int>() > 30)
-		{
-			result += 1000 * (mPerformance["audience"].get<int>() - 30);
-		}
+		throw std::exception("bad thing");
 	}
 	else if (mPlay["type"].get<std::string>() == "comedy")
 	{
