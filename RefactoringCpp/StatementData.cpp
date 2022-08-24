@@ -2,6 +2,8 @@
 
 #include <sstream>
 
+#include "PerformanceCalculator.h"
+
 using json = nlohmann::json;
 
 StatementData::StatementData(json plays)
@@ -97,6 +99,7 @@ int StatementData::TotalAmount(json data)
 
 json StatementData::EnrichPerformance(json& aPerformance)
 {
+	PerformanceCalculator performanceCalculator(aPerformance);
 	json result = aPerformance;
 	result["play"] = PlayFor(result);
 	result["amount"] = AmountFor(result);

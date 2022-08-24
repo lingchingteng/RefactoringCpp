@@ -33,12 +33,24 @@
     <ClCompile Include="StatementData.cpp">
       <Filter>標頭檔</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gtest\gtest-all.cc">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gmock\gmock-all.cc">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="PerformanceCalculator.cpp">
+      <Filter>標頭檔</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="statement.h">
       <Filter>來源檔案</Filter>
     </ClInclude>
     <ClInclude Include="StatementData.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="PerformanceCalculator.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

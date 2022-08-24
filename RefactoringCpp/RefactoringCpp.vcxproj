@@ -137,10 +137,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main_test.cpp" />
+    <ClCompile Include="PerformanceCalculator.cpp" />
     <ClCompile Include="statement.cpp" />
     <ClCompile Include="StatementData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PerformanceCalculator.h" />
     <ClInclude Include="statement.h" />
     <ClInclude Include="StatementData.h" />
   </ItemGroup>
